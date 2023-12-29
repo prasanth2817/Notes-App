@@ -6,12 +6,10 @@ import { DashboardDataContext } from "../Context/DashboardContext";
 import { Formik } from "formik";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function Edit() {
-  let [title, setTitle] = useState("");
-  let [notes, setNotes] = useState("");
   let { Data, setData } = useContext(DashboardDataContext);
   let [initialValues, setIntialvalues] = useState({ title: "", notes: "" });
   const params = useParams();
@@ -67,6 +65,7 @@ function Edit() {
                 <Form.Control
                   type="text"
                   name="title"
+                  className="text-area"
                   value={values.title}
                   placeholder="Title"
                   onBlur={handleBlur}
@@ -80,6 +79,7 @@ function Edit() {
                 <Form.Control
                   type="text"
                   name="notes"
+                  className="text-area"
                   value={values.notes}
                   placeholder="Take a Note"
                   onBlur={handleBlur}

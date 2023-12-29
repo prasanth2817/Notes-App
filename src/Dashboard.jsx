@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
 import Card from "react-bootstrap/Card";
 import NotesIconDark from "./Icons/Notes-icon-dark.svg";
-import { Button } from "react-bootstrap";
 import { DashboardDataContext } from "./Context/DashboardContext";
-import editIcon from "./Icons/edit-icon.svg";
-import deleteIcon from "./Icons/delete-icon.svg";
 import Create from "./DashboardComponents/Create";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
 
 function Dashboard() {
   const { Data, setData } = useContext(DashboardDataContext);
   let navigate = useNavigate();
+  const timeStamp = new Date().toISOString();
+  const getRelativeTime = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
   const handleDelete = (index) => {
     let newArray = [...Data];
     newArray.splice(index, 1);
@@ -55,6 +57,9 @@ function Dashboard() {
                         </div>
                       </Card.Title>
                       <Card.Text>{e.notes}</Card.Text>
+                      <div className="timestamp">
+                        {getRelativeTime(timeStamp)}
+                      </div>
                     </Card.Body>
                   </Card>
                 </div>

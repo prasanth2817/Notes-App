@@ -5,23 +5,14 @@ import { DashboardDataContext } from "../Context/DashboardContext";
 import { Formik } from "formik";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import { Navigate, useNavigate } from "react-router-dom";
 
 function Create() {
-  let [title, setTitle] = useState("");
-  let [notes, setNotes] = useState("");
   let { Data, setData } = useContext(DashboardDataContext);
-  const navigate = useNavigate();
 
   const Userschema = Yup.object().shape({
     title: Yup.string().required("*Required"),
     notes: Yup.string().required("*This Field Should not be Empty"),
   });
-
-  let values = {
-    title: `${title}`,
-    notes: `${notes}`,
-  };
 
   return (
     <Card className="customize-card">
@@ -34,11 +25,11 @@ function Create() {
         <Formik
           initialValues={{ title: "", notes: "" }}
           validationSchema={Userschema}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm }) => {
             let newArray = [...Data];
             newArray.unshift(values);
             setData(newArray);
-            console.log(newArray);
+            resetForm();
           }}
         >
           {({
@@ -68,7 +59,9 @@ function Create() {
                 <Form.Control
                   type="text"
                   name="notes"
+                  className="text-area"
                   placeholder="Take a Note"
+                  value={values.notes}
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />

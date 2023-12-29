@@ -12,13 +12,21 @@ function App() {
     <>
       <div id="Wrapper" className="Wrapper">
         <BrowserRouter>
+          <Sidebar />
           <Routes>
-            <Route path="/" element={<Sidebar />} />
+            <Route
+              path="/"
+              element={
+                <DashboardContext>
+                  <Dashboard />
+                </DashboardContext>
+              }
+            />
             <Route
               path="/Dashboard"
               element={
                 <DashboardContext>
-                  <Sidebar /> <Dashboard />
+                  <Dashboard />
                 </DashboardContext>
               }
             />
@@ -26,7 +34,6 @@ function App() {
               path="/Edit/:id"
               element={
                 <DashboardContext>
-                  <Sidebar />
                   <Edit />
                 </DashboardContext>
               }
